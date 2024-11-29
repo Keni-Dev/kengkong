@@ -223,7 +223,7 @@ void printWrappedText(const char *text, int width) {
 }
 
 
-const char *funFacts(int ageGroup) {
+const char **funFacts(int ageGroup) {
     static const char *infants[] = {
         "The brain of 0 - 2 years undergoes in rapid development or growth",
         "The brain of 2 to 3 weeks babies will start to recognize the faces of the human faces",
@@ -321,7 +321,7 @@ void printFunFacts(int ageGroupInt) {
     printf("+-------------------------------------------------------+\n");
 }
 
-const char *healthReco(int ageGroup) {
+const char **healthReco(int ageGroup) {
     static const char *infants[] = {
         "Infants are required breastfeeding since it provides the nutrients and antibodies your baby needs.",
         "Vaccinations is required to infants so that they can be protected against diseases like polio, and pertussis.",
