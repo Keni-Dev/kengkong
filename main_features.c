@@ -9,7 +9,10 @@ typedef struct {
     int month;
     int day;
 } Date;
-
+typedef struct {
+    int iror;
+    // Add other global variables you might need
+} ProgramState;
 void displayEvents(int birthYear) {
     FILE *file = fopen("World_Events.csv", "r"); // Open the CSV file
     if (file == NULL) {
@@ -157,11 +160,10 @@ int isValidDate(int year, int month, int day, int yearNow, int monthNow, int day
 }
 
 // Function to calculate age
-void calculateAge(Date birthdate, struct tm *current) {
+void calculateAge(Date birthdate, struct tm *current, ProgramState *state) {
     // Set Philippine time zone
     // setenv("TZ", "Asia/Manila", 1);
     // tzset();
-
     int currentYear = current->tm_year + 1900;
     int currentMonth = current->tm_mon + 1;
     int currentDay = current->tm_mday;
@@ -185,10 +187,19 @@ void calculateAge(Date birthdate, struct tm *current) {
         if (currentMonth >= birthdate.month) {
             if (currentDay >= birthdate.day) {
                 printf("\nYour age is: %d years, %d months, and %d days.\n", ageYears, ageMonths, ageDays);
-            } else printf("Day is invalid\n");
-        } else printf("Month is invalid\n");
-    } else printf("Year is invalid\n %d", ageYears);
-        
+                state->iror = 1;
+            } else {
+                printf("Day is invalid\n");
+                state->iror = 2;
+            }
+        } else {
+            printf("Month is invalid\n");
+            state->iror = 2;
+        }
+    } else {
+        printf("Year is invalid\n");
+        state->iror = 2;
+    }
 }
 
 void printCenteredText(const char *text, int width) {
@@ -310,7 +321,7 @@ void printFunFacts(int ageGroupInt) {
     printWrappedText(selectedFact, width);
     printf("+-------------------------------------------------------+\n");
 }
-
+ProgramState state;
 int main() {
     printf("+-------------------------------------------------------+\n|                  Age Classification                   |\n+-------------------------------------------------------+\n");
 
@@ -330,9 +341,11 @@ int main() {
     int currentMonth = current->tm_mon + 1;
     int currentDay = current->tm_mday;
 
+    state.iror = 1;
+
     while (1) {
         printf("Enter your birthdate (YYYY MM DD): ");
-
+        state.iror =1;
         // Validate input
         if (scanf("%d %d %d", &birthdate.year, &birthdate.month, &birthdate.day) != 3) {
             printf("Invalid input. Please enter numeric values for year, month, and day.\n");
@@ -341,24 +354,31 @@ int main() {
         }
 
         // Check if the date is valid
-        if (!isValidDate(birthdate.year, birthdate.month, birthdate.day, currentYear, currentMonth, currentDay)) {
+        if (!isValidDate(birthdate.year, birthdate.month, birthdate.day,  currentYear, currentMonth, currentDay)) {
             printf("Invalid date. Please try again.\n");
             continue;
         }
-
+        printf("%d", state.iror);
         // If valid, calculate age and exit loop
-        calculateAge(birthdate, current);
+        if (state.iror == 1) {
+            calculateAge(birthdate, current, &state);
+            if (state.iror == 2) {
+                printf("Invalid date. Please try again.\n");\
+                continue;
+            }
+        }
+        else if (state.iror == 2) {
+            printf("Invalid date. Please try again.\n");
+            continue;
+        }
         break;
     }
 
     // Birthdate stored in the `birthdate` struct can be used later
     // printf("Stored birthdate: %d-%02d-%02d\n", birthdate.year, birthdate.month, birthdate.day);
 
-
     int age = currentYear - birthdate.year;
     int ageGroup = ageGroupIntChecker(age);
-
-
 
     genderChecker();
     displayEvents(birthdate.year);

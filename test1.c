@@ -1,10 +1,13 @@
 #include <stdio.h>
 #include <string.h>
+
+typedef struct {
+    int eror;
+} test;
 int main()
 {
-    char destination[] = "Hello ";
-    char source[] = "World!";
-    strcat(destination,source);
-    printf("Concatenated String: %s\n", destination);
-    return 0;
+    test tist;
+    printf("%d", tist.eror);
+    tist.eror = 4;
+    printf("%d", tist.eror);
 }
