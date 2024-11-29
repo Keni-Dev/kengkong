@@ -94,9 +94,24 @@ const char *ageGroup (int age) {
     else return "Invalid";
 
 }
+const char *month(int month){
+    if (month == 0) return "Invalid";
+    else if (month == 1) return "January";
+    else if (month == 2) return "February";
+    else if (month == 3) return "March";
+    else if (month == 4) return "April";
+    else if (month == 5) return "May";
+    else if (month == 6) return "June";
+    else if (month == 7) return "July";
+    else if (month == 8) return "August";
+    else if (month == 9) return "September";
+    else if (month == 10) return "October";
+    else if (month == 11) return "November";
+    else if (month == 12) return "December";
+}
 void genderChecker() {
     int gender = 0;                 // 0 - Invalid; 1 - Male; 2 - Female; 3 - Non-binary
-    printf("Input the corresponding number for gender: \n1) Male \n2) Female \n3) Non-binary \n4) Prefer not to say \n");
+    printf("\nInput the corresponding number for gender: \n1) Male \n2) Female \n3) Non-binary \n4) Prefer not to say \n");
     scanf("%d", &gender);
 
     switch(gender) {
@@ -399,16 +414,15 @@ void printHealthReco(int ageGroupInt) {
     printf("+-------------------------------------------------------+\n");
 }
 ProgramState state;
-int main() {
-    printf("+-------------------------------------------------------+\n|                  Age Classification                   |\n+-------------------------------------------------------+\n");
 
+void printOutFinal() {
+    printf("+-------------------------------------------------------+\n|                  Age Classification                   |\n+-------------------------------------------------------+\n");
     // Getting name 
     printf("Enter your full name: ");
     char name[64];
     char firstName[32];
     fgets(name, sizeof(name), stdin);
     sscanf(name, "%s", firstName);  // Extract the first word (until a space)
-
 
     // Getting birthdate
     Date birthdate;
@@ -435,7 +449,7 @@ int main() {
             printf("Invalid date. Please try again.\n");
             continue;
         }
-        printf("%d", state.iror);
+
         // If valid, calculate age and exit loop
         if (state.iror == 1) {
             calculateAge(birthdate, current, &state);
@@ -450,19 +464,29 @@ int main() {
         }
         break;
     }
+    
+    int age = currentYear - birthdate.year;
+    int ageGroup = ageGroupIntChecker(age);
+    char *monthName = month(birthdate.month);
 
+    genderChecker();
+    // printf("%d", ageGroupChecker(birthYear));
+
+    printf("\n\n+-------------------------------------------------------+\n|                  Age Classification                   |\n+-------------------------------------------------------+\n");
+    printf("Hello, %s! You were born on %s %d, %d and are currently %d years old. \n", firstName, monthName, birthdate.day, birthdate.year, age);
+    printf("\nFrom the year you were born until today, the world has experienced the following events:");
+    displayEvents(birthdate.year);
+    printf("\nHere are some fun facts from your age group!");
+    printFunFacts(ageGroup);
+    printHealthReco(ageGroup);
+}
+
+int main() {
     // Birthdate stored in the `birthdate` struct can be used later
     // printf("Stored birthdate: %d-%02d-%02d\n", birthdate.year, birthdate.month, birthdate.day);
     // printf("\nYour age is: %d years, %d months, and %d days.\n", ageYears, ageMonths, ageDays);
     // 
-
-    int age = currentYear - birthdate.year;
-    int ageGroup = ageGroupIntChecker(age);
-
-    genderChecker();
-    displayEvents(birthdate.year);
-    printFunFacts(ageGroup);
-    printHealthReco(ageGroup);
-    // printf("%d", ageGroupChecker(birthYear));
+    printOutFinal();
+    
     return 0;
 }
