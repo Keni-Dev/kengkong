@@ -186,7 +186,7 @@ void calculateAge(Date birthdate, struct tm *current, ProgramState *state) {
     if (currentYear >= birthdate.year) {        
         if (currentMonth >= birthdate.month) {
             if (currentDay >= birthdate.day) {
-                printf("\nYour age is: %d years, %d months, and %d days.\n", ageYears, ageMonths, ageDays);
+                // printf("\nYour age is: %d years, %d months, and %d days.\n", ageYears, ageMonths, ageDays);
                 state->iror = 1;
             } else {
                 printf("Day is invalid\n");
@@ -223,7 +223,7 @@ void printWrappedText(const char *text, int width) {
 }
 
 
-const char **funFacts(int ageGroup) {
+const char *funFacts(int ageGroup) {
     static const char *infants[] = {
         "The brain of 0 - 2 years undergoes in rapid development or growth",
         "The brain of 2 to 3 weeks babies will start to recognize the faces of the human faces",
@@ -238,7 +238,6 @@ const char **funFacts(int ageGroup) {
         "Toddlers love to imitate adults and older children, copying behaviors, words, and even chores as they try to understand the world.",
         "By 3-4 years old, you often recognize and remember people you have met, even if you haven't seen them in a while. This is a big part of your social development.",
         "Many toddlers like you go through a picky eating phase, while some of you enjoy experimenting with new foods."
-
     };
     static const char *preSchoolers[] = {
         "Preschool age groups have an impressive memory, often recalling events and information better than adults.",
@@ -308,7 +307,7 @@ const char **funFacts(int ageGroup) {
 
 void printFunFacts(int ageGroupInt) {
     const char **facts = funFacts(ageGroupInt); // Retrieve facts for the age group
-    int factCount = 2; // Set the fact count manually for each group
+    int factCount = 5; // Set the fact count manually for each group
 
     const int width = 55; // Table width
 
@@ -317,6 +316,84 @@ void printFunFacts(int ageGroupInt) {
     sprintf(selectedFact, "%s (%s)", selectedFact, ageGroup(ageGroupInt));
     printf("\n+-------------------------------------------------------+\n");
     printf("|                     DID YOU KNOW?                     |\n");
+    printf("+-------------------------------------------------------+\n");
+    printWrappedText(selectedFact, width);
+    printf("+-------------------------------------------------------+\n");
+}
+
+const char *healthReco(int ageGroup) {
+    static const char *infants[] = {
+        "Infants are required breastfeeding since it provides the nutrients and antibodies your baby needs.",
+        "Vaccinations is required to infants so that they can be protected against diseases like polio, and pertussis.",
+        "Hygiene is very important to infants such as changing diapers and cleaning them with wipes and at least bath them 2 - 3 times a week so that the over - bathing can be avoided",
+    };
+    static const char *toddlers[] = {
+        "Toddlers are required to do physical activity daily which include running, playing, dancing and other age - appropriate to ensure that bones are stretched",
+        "It is required to eat nutritions such as vegetables so that having cavities for toddlers can be avoided",
+        "Avoid eating too much sweets so that having broken tooths in early age can be avoided."
+    };
+    static const char *preSchoolers[] = {
+        "Regular pediatrician visits are important to monitor growth milestones and receive necessary vaccinations.",
+        "It's essential to create a safe home environment by childproofing and teaching basic safety rules.",
+        "Preschoolers should have a balanced diet rich in fruits, vegetables, whole grains, and lean proteins to support their growth."
+    };
+    static const char *schoolAge[] = {
+        "You must know the importance of personal safety, such as knowing their address and phone number, and understanding stranger danger.",
+        "You must know the body image positively by emphasizing the importance of healthy eating and regular exercise, rather than focusing on weight or appearance.",
+        "You must know the importance of personal safety, such as knowing their address and phone number, and understanding stranger danger."
+    };
+    static const char *teenagers[] = {
+        "Ensure a diet rich in fruits, vegetables, whole grains, lean proteins, and dairy for growth and energy and avoid sweets like candies",
+        "Balance academic, extracurricular, and leisure activities to avoid burnout.",
+        "Promote positive body image and self-confidence. Remind them that social media often shows unrealistic standards."
+    };
+    static const char *youngAdults[] = {    
+        "Take time to relax and be present, whether through yoga, hiking, or even just disconnecting from your phone for an hour.",
+        "Young adulthood comes with new responsibilities, so it's important to manage stress before it overwhelms you.",
+        "Practice mindfulness, journaling, or activities like yoga and deep breathing to relax your mind."
+    };
+    static const char *adults[] = {
+        "Prioritize Sleep: Aim for 7-9 hours of quality sleep each night.  Adults often juggles demanding careers, families, and social lives, making sleep a crucial factor in managing stress, boosting energy levels, and maintaining overall well-being.",
+        "Mind Your Diet:  Focus on consuming whole, unprocessed foods like fruits, vegetables, whole grains, legumes, and lean protein sources.  Limit processed foods, sugary drinks, and excessive saturated and unhealthy fats.  A balanced diet provides essential nutrients and supports overall health.",
+        "Manage Stress:  Identify your stress triggers and develop healthy coping mechanisms, such as exercise, meditation, spending time in nature, or engaging in hobbies.  Chronic stress can negatively impact both physical and mental health."
+    };
+    static const char *middleAgeAdults[] = {
+        "Engage in regular physical activity, such as brisk walking or strength training, for at least 150 minutes per week to maintain cardiovascular health and muscle strength.",
+        "Prioritize a balanced diet rich in fruits, vegetables, lean proteins, whole grains, and healthy fats while limiting processed foods and added sugars.",
+        "Schedule regular health checkups, including screenings for blood pressure, cholesterol, diabetes, and cancer, to catch potential issues early."
+    };
+    static const char *senior[] = {
+        "Stay physically active with low-impact exercises like walking, swimming, or yoga to maintain mobility, strength, and balance.",
+        "Focus on a nutrient-dense diet that includes adequate protein, calcium, vitamin D, and fiber to support bone health and digestion.",
+        "Keep up with routine medical checkups and vaccinations, and monitor chronic conditions closely to maintain overall well-being."
+    };
+    static const char *nullFact[] = {
+        "Not a valid age group!"
+    };
+
+    // Return the appropriate array based on the age group
+    if (ageGroup == 1) return infants;
+    else if (ageGroup == 2) return toddlers;
+    else if (ageGroup == 3) return preSchoolers;
+    else if (ageGroup == 4) return schoolAge;
+    else if (ageGroup == 5) return teenagers;
+    else if (ageGroup == 6) return youngAdults;
+    else if (ageGroup == 7) return adults;
+    else if (ageGroup == 8) return middleAgeAdults;
+    else if (ageGroup == 9) return senior;
+    else return nullFact;
+}
+void printHealthReco(int ageGroupInt) {
+    const char **facts = healthReco(ageGroupInt); // Retrieve facts for the age group
+    int factCount = 3; // Set the fact count manually for each group
+
+    const int width = 55; // Table width
+
+    srand(time(NULL)); // Seed random number generator
+    char *selectedFact = facts[rand() % factCount];
+    sprintf(selectedFact, "%s (%s)", selectedFact, ageGroup(ageGroupInt));
+    printf("\n+-------------------------------------------------------+\n");
+    printf("|                  Health Recommendation                |\n");
     printf("+-------------------------------------------------------+\n");
     printWrappedText(selectedFact, width);
     printf("+-------------------------------------------------------+\n");
@@ -376,6 +453,8 @@ int main() {
 
     // Birthdate stored in the `birthdate` struct can be used later
     // printf("Stored birthdate: %d-%02d-%02d\n", birthdate.year, birthdate.month, birthdate.day);
+    // printf("\nYour age is: %d years, %d months, and %d days.\n", ageYears, ageMonths, ageDays);
+    // 
 
     int age = currentYear - birthdate.year;
     int ageGroup = ageGroupIntChecker(age);
@@ -383,6 +462,7 @@ int main() {
     genderChecker();
     displayEvents(birthdate.year);
     printFunFacts(ageGroup);
+    printHealthReco(ageGroup);
     // printf("%d", ageGroupChecker(birthYear));
     return 0;
 }
