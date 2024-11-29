@@ -1,118 +1,84 @@
 #include <stdio.h>
 #include <string.h>
-int ageGroupChecker(int age) {
-    if (age < 0) return 0;          // Invalid
-    else if (age <= 2) return 1;    // Infants 0-2
-    else if (age <= 4) return 2;    // Toddlers 3-4 
-    else if (age <= 6) return 3;    // Preschoolers 5-6
-    else if (age <= 12) return 4;   // School-age 7-12
-    else if (age <= 19) return 5;   // Teenagers 13-19
-    else if (age <= 29) return 6;   // Young Adults 20-29
-    else if (age <= 39) return 7;   // Adults 30-39
-    else if (age <= 59) return 8;   // Middle Age Adults 40-59
-    else if (age >= 60) return 9;   // Seniors 60+
-    return 0;
-}
 
-int main()  {
-    // Input - Name, Birthdate, gender
-    // Features - chinese sign, major events, health recomendation, funfacts per age group, 
-    // major events 1900 - 2024 124, health recommendations
+int main() {
+    int age = intInputChecker();
+    int gender;
 
-    // Infants 0-2              1-5 infants, 1 toddlers - eunice
-    // Toddlers 2-4             2-5 toddlers, 1-2 preschool - charina
-    // Presschoolers 4-6        3-5 preschool, 1-3 schoolage - joseph
-    // school-age 6-12          4-5 schoolage, 1-4 teenagers - kc
-    // teenagers 13-19          5 teenagers, 1-5 young adults - laurice 
-    // young adults 20-29       1-5 adults, 1 middle age - olive
-    // adults 30 - 39           2-5 middle age, 2 senior - yangel
-    // middle age adults 40-59
-    // seniors 60+
+    printf("Input the corresponding number for gender: \n1) Male \n2) Female \n3) Non-binary \n4) Prefer not to say \n");
+    scanf("%d", &gender);
 
-    // 1900 - 1915 akira
-    // 16 - 30 charina
-    // 31 - 45 eunice
-    // 46 - 60 jospeh 
-    // 61 - 75 kc
-    // 76 - 90 olive
-    // 91 - 2005 yangel
-    // 2006 - current laurice
-
-    int age;
-    char gender [10];
-
-    printf("Enter your age: \n");
-    scanf("%d", &age);
-    printf("Enter gender M/F/Non-Binary: \n");
-    scanf("%s", gender);
-
-    if (age < 0){
-        printf("Invalid age.\n");
-    } else if (age <= 12){
-        if (strcmp(gender, "M") == 0 || strcmp(gender, "m") == 0){
-            printf("You are a young boy. \n");
-        } else if (strcmp(gender, "F") == 0 || strcmp(gender, "f") == 0){
-            printf("You are a young girl. \n");
-        } else if (strcmp(gender, "Non-binary") == 0 || strcmp(gender, "non-binary") == 0){
-            printf("You are a young non-binary. \n");
+    if (age >= 0) {
+        if (age <= 2) {
+            printf("Infant\n");
         } else {
-            printf("Invalid gender.\n");
+            if (age <= 4) {
+                printf("Toddler\n");
+            } else {
+                if (age <= 6) {
+                    printf("Preschooler\n");
+                } else {
+                    if (age <= 12) {
+                        printf("School-age\n");
+                    } else {
+                        if (age <= 19) {
+                            printf("Teenager\n");
+                        } else {
+                            if (age <= 29) {
+                                printf("Young adult\n");
+                            } else {
+                                if (age <= 39) {
+                                    printf("Adult\n");
+                                } else {
+                                    if (age <= 59) {
+                                        printf("Middle age adult\n");
+                                    } else {
+                                        printf("Senior\n");
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
         }
-
-    } else if (age < 18){
-        if (strcmp(gender, "M") == 0 || strcmp(gender, "m") == 0){
-            printf("You are a teenage boy. \n");
-        } else if (strcmp(gender, "F") == 0 || strcmp(gender, "f") == 0){
-            printf("You are a teenage girl. \n");
-        } else if (strcmp(gender, "Non-binary") == 0 || strcmp(gender, "non-binary") == 0){
-            printf("You are a teenage non-binary. \n");
-        } else {
-            printf("Invalid gender.\n");
-        }
-
-    } else if (age < 60){
-        if (strcmp(gender, "M") == 0 || strcmp(gender, "m") == 0){
-            printf("You are an adult man. \n");
-        } else if (strcmp(gender, "F") == 0 || strcmp(gender, "f") == 0){
-            printf("You are an adult woman. \n");
-        } else if (strcmp(gender, "Non-binary") == 0 || strcmp(gender, "non-binary") == 0){
-            printf("You are an adult non-binary. \n");
-        } else {
-            printf("Invalid gender.\n");
-        }
-
     } else {
-        if (strcmp(gender, "M") == 0 || strcmp(gender, "m") == 0){
-            printf("You are a senior man. \n");
-        } else if (strcmp(gender, "F") == 0 || strcmp(gender, "f") == 0){
-            printf("You are a senior woman. \n");
-        } else if (strcmp(gender, "Non-binary") == 0 || strcmp(gender, "non-binary") == 0){
-            printf("You are a senior non-binary. \n");
-        } else {
-            printf("Invalid gender.\n");
-        }    
+        printf("Invalid age\n");
     }
+    switch(gender) {
+        case 1:
+            printf("Gender: Male\n");
+            break;
+        case 2:
+            printf("Gender: Female\n");
+            break;
+        case 3:
+            printf("Gender: Non-binary\n");
+            break;
+        case 4:
+            printf("Gender: Not specified\n");
+            break;
+        case 0:
+        default:
+            printf("Invalid input.\n");
+            break;
+    }
+
     return 0;
 }
+int intInputChecker() {
+    int num;
+    char term;
 
-int age_group(int age) {
-    if (age < 0) return 0;
-    else if (age <= 2) return 1;
-    else if (age <= 6) return 2;
-    else if (age <= 12) return 3;
-    else if (age <= 19) return 4;
-    else if (age <= 29) return 5;
-    else if (age <= 39) return 6;
-    else if (age <= 59) return 7;
-    else if (age >= 60) return 8;
+    while (1) {  // Infinite loop, breaks when valid input is entered
+        printf("Enter an age: ");
+        if (scanf("%d%c", &num, &term) != 2 || term != '\n') {
+            // Clear the input buffer in case of invalid input
+            while (getchar() != '\n');  
+            printf("Input not an integer! Please try again.\n");
+        } else {
+            // Valid integer input
+            return num;
+        }
+    }
 }
-
-    // Infants 0-2 
-    // Toddlers 2-4
-    // Presschoolers 4-6
-    // school-age 6-12
-    // teenagers 13-19
-    // young adults 20-29
-    // adults 30 - 39
-    // middle age adults 40-59
-    // seniors 60+
