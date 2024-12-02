@@ -100,7 +100,7 @@ int getAge() {
     int age;
     while (1) {
         age = intInputChecker("your age");
-        if (age < 0 || age > 130) {
+        if (age < 0) {
             printf("Please enter a valid age between 0 and 130.\n");
             continue;
         }
