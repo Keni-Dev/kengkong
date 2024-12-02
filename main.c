@@ -156,3 +156,34 @@ int intInputChecker(const char *message) {
         }
     }
 }
+
+// Enter your age: 18
+// Input the corresponding number for gender:
+// 1) Male
+// 2) Female
+// 3) Non-binary
+// 4) Prefer not to say
+// Enter your gender choice: 2
+// Age group: Teenager
+
+// Is the information correct?
+// Age: 18
+// Gender: Female
+// 1) Confirm
+// 2) Change Age
+// 3) Change Gender
+// Enter your choice: 2
+// Enter your age: 19
+// Age group: Teenager
+
+// Is the information correct?
+// Age: 19
+// Gender: Female
+// 1) Confirm
+// 2) Change Age
+// 3) Change Gender
+// Enter your choice: 1
+
+// Final Information:
+// Age: 19
+// Gender: Female
