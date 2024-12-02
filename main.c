@@ -116,7 +116,7 @@ int getAge() {
         age = intInputChecker("your age");  // Prompt user for age
         if (age < 0) {
             // Age cannot be negative
-            printf("Please enter a valid age between 0 and 130.\n");
+            printf("Please enter a valid age.\n");
             continue;  // Prompt again
         }
         return age;  // Valid age entered, return value

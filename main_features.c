@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
+#include <time.h>
 
 // Define a struct to store a date
 typedef struct {
@@ -181,25 +182,9 @@ void calculateAge(Date birthdate, struct tm *current, ProgramState *state) {
     int currentMonth = current->tm_mon + 1;
     int currentDay = current->tm_mday;
 
-    int ageYears = currentYear - birthdate.year;
-    int ageMonths = currentMonth - birthdate.month;
-    int ageDays = currentDay - birthdate.day;
-
-    // Adjust for negative days or months
-    if (ageDays < 0) {
-        ageDays += 30; // Assume 30 days in the previous month
-        ageMonths--;
-    }
-    if (ageMonths < 0) {
-        ageMonths += 12;
-        ageYears--;
-    } // 2024 1 1
-
-    
     if (currentYear >= birthdate.year) {        
         if (currentMonth >= birthdate.month) {
-            if (currentDay >= birthdate.day) {
-                // printf("\nYour age is: %d years, %d months, and %d days.\n", ageYears, ageMonths, ageDays);
+            if ((currentDay <= birthdate.day) && (currentMonth != birthdate.month) || (currentMonth == birthdate.month && currentYear == birthdate.year && currentDay >= birthdate.day)) {
                 state->iror = 1;
             } else {
                 printf("Day is invalid\n");
@@ -465,12 +450,13 @@ void printOutFinal() {
     
     int age = currentYear - birthdate.year;
     int ageGroup = ageGroupIntChecker(age);
-    char *monthName = month(birthdate.month);
+    const char *monthName = month(birthdate.month);
 
     genderChecker();
 
     printf("\n\n+-------------------------------------------------------+\n|                  Age Classification                   |\n+-------------------------------------------------------+\n");
-    printf("Hello, %s! You were born on %s %d, %d and are currently %d years old. \n", firstName, monthName, birthdate.day, birthdate.year, age);
+    printf("Hello, %s! You were born on %s %d, %d and are currently %d years old.\n", 
+        firstName, monthName, birthdate.day, birthdate.year, age);
     printf("\nFrom the year you were born until today, the world has experienced the following events:");
     displayEvents(birthdate.year);
     printf("\nHere are some fun facts from your age group!");
