@@ -10,7 +10,6 @@ typedef struct {
 } Date;
 typedef struct {
     int iror;
-    // Add other global variables you might need
 } ProgramState;
 void displayEvents(int birthYear) {
     FILE *file = fopen("World_Events.csv", "r"); // Open the CSV file
@@ -469,7 +468,6 @@ void printOutFinal() {
     char *monthName = month(birthdate.month);
 
     genderChecker();
-    // printf("%d", ageGroupChecker(birthYear));
 
     printf("\n\n+-------------------------------------------------------+\n|                  Age Classification                   |\n+-------------------------------------------------------+\n");
     printf("Hello, %s! You were born on %s %d, %d and are currently %d years old. \n", firstName, monthName, birthdate.day, birthdate.year, age);
@@ -481,10 +479,6 @@ void printOutFinal() {
 }
 
 int main() {
-    // Birthdate stored in the `birthdate` struct can be used later
-    // printf("Stored birthdate: %d-%02d-%02d\n", birthdate.year, birthdate.month, birthdate.day);
-    // printf("\nYour age is: %d years, %d months, and %d days.\n", ageYears, ageMonths, ageDays);
-    // 
     printOutFinal();
     
     return 0;

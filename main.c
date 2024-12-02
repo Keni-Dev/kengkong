@@ -1,5 +1,4 @@
 #include <stdio.h>
-#include <string.h>
 
 // Function prototypes
 int intInputChecker(const char *message);
