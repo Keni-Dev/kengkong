@@ -133,23 +133,6 @@ void genderChecker() {
     }
 }
 
-// int intInput() {
-//     int num;
-//     char term;
-//
-//     while (1) {  // Infinite loop, breaks when valid input is entered
-//         printf("Enter an integer: ");
-//         if (scanf("%d%c", &num, &term) != 2 || term != '\n') {
-//             // Clear the input buffer in case of invalid input
-//             while (getchar() != '\n');  
-//             printf("Input not an integer! Please try again.\n");
-//         } else {
-//             // Valid integer input
-//             return num;
-//         }
-//     }
-// }
-
 // Function to check if the input is a valid date
 int isValidDate(int year, int month, int day, int yearNow, int monthNow, int dayNow) {
     if (year < 1900 || year > yearNow)
@@ -182,21 +165,13 @@ void calculateAge(Date birthdate, struct tm *current, ProgramState *state) {
     int currentMonth = current->tm_mon + 1;
     int currentDay = current->tm_mday;
 
-    if (currentYear >= birthdate.year) {        
-        if (currentMonth >= birthdate.month) {
-            if ((currentDay <= birthdate.day) && (currentMonth != birthdate.month) || (currentMonth == birthdate.month && currentYear == birthdate.year && currentDay >= birthdate.day)) {
-                state->iror = 1;
-            } else {
-                printf("Day is invalid\n");
-                state->iror = 2;
-            }
-        } else {
-            printf("Month is invalid\n");
-            state->iror = 2;
-        }
-    } else {
-        printf("Year is invalid\n");
+    if (birthdate.year > currentYear ||
+        (birthdate.year == currentYear && birthdate.month > currentMonth) ||
+        (birthdate.year == currentYear && birthdate.month == currentMonth && birthdate.day > currentDay)) {
+        printf("Invalid date\n");
         state->iror = 2;
+    } else {
+        state->iror = 1;
     }
 }
 
